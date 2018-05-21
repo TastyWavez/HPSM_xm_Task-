@@ -1,12 +1,18 @@
+//import the HPSM libraries for JSON and REST client
 var JSON = lib.JSON.json();
 var REST = lib.smis_RestClient;
 var RESTUtil = lib.smis_CommonLib;
-
-var sURLAddRest = "<Incident Task form URL-Basic Auth>"; // end point URL from XOD integration builder
+// end point URL from XOD integration builder
+var sURLAddRest = "<Incident Task form URL-Basic Auth>";
+// XOD base URL
 var sURLBaseRest = "<xMatters base url e.g. yourinstance.xmatters.com>";
 var sEventPath = "/api/xm/1/events";
+//user designated w/ REST role in XOD
 var sUser = < user assigned REST role in xMatters > ;
+//password of REST role user
 var sPass = < password > ;
+//Uncomment below and set to true to debug this script in HPSM 
+
 //var bDebug = false;
 
 function addEvent(record) {
