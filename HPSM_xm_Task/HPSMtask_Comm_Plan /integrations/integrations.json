@@ -1,0 +1,56 @@
+{
+  "integrations": [
+    {
+      "id": "fe624160-bb0b-4676-8e11-b8a15712bb54",
+      "name": "DeviceDeliveries",
+      "action": "RUN_SCRIPT",
+      "type": "OUTBOUND_WEBHOOK",
+      "triggeredBy": "DELIVERYSTATUS",
+      "deployed": true,
+      "form": "b8dc72e8-998c-45f3-931a-8f1067ea849e",
+      "script": "//parse the inbound payload \nvar payload = JSON.parse(request.body);\n\nif (payload.eventProperties && Array.isArray(payload.eventProperties)) {\n    var eventProperties = payload.eventProperties;\n    payload.eventProperties = {};\n\n    for (var i = 0; i < eventProperties.length; i++) {\n        var eventProperty = eventProperties[i];\n        var key = Object.keys(eventProperty)[0];\n        payload.eventProperties[key] = eventProperty[key];\n    }\n}\n\n\n/** The event ID and time are included in the payload of all triggers **/\nconsole.log('\\nCommon properties:');\nconsole.log('Event ID: ' + payload.eventIdentifier);\nconsole.log('Time: ' + payload.date);\n\n/** These properties are included in the payload of delivery status update triggers. **/\nconsole.log('\\nDelivery Status properties:');\nconsole.log('Delivery status: ' + payload.deliveryStatus);\nconsole.log('to device: ' + payload.device + ' ID: ' + payload.deviceId);\nconsole.log('to recipient ' + payload.recipient);\nconsole.log('delivery message: ' + payload.message);\nconsole.log('delivery type: ' + payload.eventType);\n\n//prepare HPSM request with predefined HPSM endpoint (see endpoints in comm plan)\n{  var req = http.request({\n    'endpoint': 'HPSM',\n    'method': 'POST',\n    'path': payload.eventProperties.Task_ID + '/action/update',\n    'autoEncodeURI': false,\n    'headers': {\n        'Content-Type': 'application/json'\n    }\n});\n//build out payload \n    var deliveryUpdates = {};\n    deliveryUpdates.IncidentTask = {};\n    deliveryUpdates.IncidentTask.JournalUpdates = ' message delivered to ' +  payload.recipient + ' to device: ' + payload.device + ' status: ' + payload.deliveryStatus;\n//send it\n    var response = req.write(deliveryUpdates);\nif (response.statusCode == 200) {\n    console.log('delivery status has been updated');\n} else { \n    (console.log('Error sending delivery updates'));\n}}\n\nconsole.log('Finished running an Integration Builder script.');\n",
+      "environment": "ONPREMISE"
+    },
+    {
+      "id": "efffda7f-9037-4657-911f-3b7b84b744c9",
+      "name": "EventStatusJournalUpdates",
+      "action": "RUN_SCRIPT",
+      "type": "OUTBOUND_WEBHOOK",
+      "triggeredBy": "STATUS",
+      "deployed": false,
+      "form": "b8dc72e8-998c-45f3-931a-8f1067ea849e",
+      "script": "//parse the inbound payload \nvar payload = JSON.parse(request.body);\n\n//convert array to object \nif (payload.eventProperties && Array.isArray(payload.eventProperties)) {\n    var eventProperties = payload.eventProperties;\n    payload.eventProperties = {};\n\n    for (var i = 0; i < eventProperties.length; i++) {\n        var eventProperty = eventProperties[i];\n        var key = Object.keys(eventProperty)[0];\n        payload.eventProperties[key] = eventProperty[key];\n    }\n}\n\n\n//log some of the status updates, viewable in activity stream \nconsole.log('\\nCommon properties:');\nconsole.log('Event ID: ' + payload.eventIdentifier);\nconsole.log('Time: ' + payload.date);\n\n\nconsole.log('\\nEvent Status properties:');\nconsole.log('Event status changed to: ' + payload.status);\nconsole.log('Event sender: ' + payload.username);\n//Prepare request to HPSM for journal updates \n{  var req = http.request({\n    'endpoint': 'HPSM',\n    'method': 'POST',\n    'path': payload.eventProperties.Task_ID + '/action/update',\n    'autoEncodeURI': false,\n    'headers': {\n        'Content-Type': 'application/json'\n    }\n});\n//build payload for journal updates \n    var statusUpdates = {};\n    statusUpdates.IncidentTask = {};\n    statusUpdates.IncidentTask.JournalUpdates = ' Event status changed to  ' +  payload.status;\n//send it     \n    var response = req.write(statusUpdates);\n    if (response.statusCode == 200) {\n    console.log('Event status has been updated');\n    }else { \n    (console.log('Error sending status updates'));\n}}\n\nconsole.log('Finished running an Integration Builder script.');\n\n",
+      "environment": "ONPREMISE"
+    },
+    {
+      "id": "72974750-7176-4814-b564-cf3871725399",
+      "name": "InboundIncidentTask",
+      "action": "CREATE_EVENT",
+      "type": "INBOUND_WEBHOOK",
+      "deployed": true,
+      "form": "b8dc72e8-998c-45f3-931a-8f1067ea849e",
+      "script": "//parse the inbound payload \nvar payload = JSON.parse(request.body);  \n//build trigger object to populate form \ntrigger.properties.Status = payload.properties.Status;\ntrigger.properties.Acknowledge = payload.properties.Acknowledge;\ntrigger.properties.Category = payload.properties.Category;\ntrigger.properties.Open = payload.properties.Open; \n//check numeric values set in HPSM and map to textual human readable values for event notifications\nswitch (payload.properties.Urgency){\n case '2':\n    trigger.properties.Urgency = 'High';\n    break;\n case '3':\n    trigger.properties.Urgency = 'Medium';\n   break;\n case '4':\n    trigger.properties.Urgency = 'Low';\n    break;\n}\n\nswitch (payload.properties.Impact){\n case '1':\n    trigger.properties.Impact = 'Severity 1';\n    break;\n case '2':\n    trigger.properties.Impact = 'Severity 2';\n   break;\n case '3':\n    trigger.properties.Impact = 'Severity 3';\n    break;\n case '4':\n     trigger.properties.Impact = 'Severity 4';\n    break;\n}\n//sets priority and xm event priority based off priority set in HPSM\nswitch (payload.properties.Priority){\n case '1':\n    trigger.properties.Priority  = '1 - Major';\n    trigger.priority = 'High';\n    break;\n case '2':\n    trigger.properties.Priority  = '2 - Minor';\n    trigger.priority = 'High';\n   break;\n case '3':\n    trigger.properties.Priority = '3 - Routine';\n    trigger.priority ='Low';\n    break;\n case '4':\n     trigger.properties.Priority = '4 - User';\n     trigger.priority ='Low';\n    break;\n}\ntrigger.properties.Title = payload.properties.Title; \ntrigger.properties.Due_Date = payload.properties.Due_Date;\ntrigger.properties.ParentIncident = payload.properties.ParentIncident; \ntrigger.properties.Description = payload.properties.Description['0'];\ntrigger.properties.Task_ID = payload.properties.Task_ID;\ntrigger.properties.Affected_CI = payload.properties.Affected_CI;\n//set HPSM assignment group as target group \nvar recipients = [];\nfor (var i in payload.recipients)\n{\n    var targetGroup = payload.recipients[i].targetName;\n    recipients.push({'id': targetGroup});\n}\n\ntrigger.recipients = recipients;\ntrigger.properties.Targets = targetGroup;\n//send it \nform.post(trigger);\n\n\nconsole.log('Finished running an Integration Builder script.');",
+      "environment": "HOSTED"
+    },
+    {
+      "id": "b8ace8ec-17fd-46e3-9763-7fc3f52ba6b5",
+      "name": "UpdateIncidentTask",
+      "action": "RUN_SCRIPT",
+      "type": "OUTBOUND_WEBHOOK",
+      "triggeredBy": "RESPONSE",
+      "deployed": true,
+      "form": "b8dc72e8-998c-45f3-931a-8f1067ea849e",
+      "script": "//Parse the inbound payload \nvar payload = JSON.parse(request.body);\n\n//Convert the payload from an array in to a dot walkable JS object \nif (payload.eventProperties && Array.isArray(payload.eventProperties)) {\n    var eventProperties = payload.eventProperties;\n    payload.eventProperties = {};\n\nfor (var i = 0; i < eventProperties.length; i++) {\n    var eventProperty = eventProperties[i];\n    var key = Object.keys(eventProperty)[0];\n    payload.eventProperties[key] = eventProperty[key];\n    }\n}\n//check response and set the value \nif(payload.response === 'Ack'|| payload.response === 'Acknowledge'){\n    payload.response = 'Acknowledged';\n}\n//check value of status and set to accepted \nif(payload.eventProperties.Status === 'Ready'){\n    payload.eventProperties.Status = 'Accepted';\n}\n//log some of the event details, visible in activity stream \nconsole.log('\\nCommon properties:');\nconsole.log('Event ID: ' + payload.eventIdentifier);\nconsole.log('Time: ' + payload.date);\nconsole.log('\\nResponse properties:');\nconsole.log('Recipient: ' + payload.recipient);\nconsole.log('Responded with: ' + payload.response);\nconsole.log('From this device: ' + payload.device);\n//get the event to set the assignee \n\n{    var request = http.request({\n    \"endpoint\": \"xMatters\",\n    \"path\": \"/api/xm/1/events/\" + payload.eventIdentifier,\n    \"method\": \"GET\"\n});\n\n    var response = request.write();\n\nif (response.statusCode == 200) {\n    json = JSON.parse(response.body);\n    \nfor (var i in json.recipients.data) {\n    var AssignmentGroup = json.recipients.data[i].targetName;\n    }\n}}\n//set up POST to HPSM that the event has been assigned/acknowledged \n  {  var req = http.request({\n    'endpoint': 'HPSM',\n    'method': 'POST',\n    'path': payload.eventProperties.Task_ID + '/action/update',\n    'autoEncodeURI': false,\n    'headers': {\n        'Content-Type': 'application/json'\n    }\n});\n//build the payload to be sent to HPSM \n    var updateTask = {};\n    updateTask.IncidentTask = {};\n    updateTask.IncidentTask.Status = payload.eventProperties.Status;\n    updateTask.IncidentTask.Acknowledge = payload.response;\n    updateTask.IncidentTask.Category = payload.eventProperties.Category;\n    updateTask.IncidentTask.Open = payload.eventProperties.Open;\n    updateTask.IncidentTask.Urgency = payload.eventProperties.Urgency;\n    updateTask.IncidentTask.Impact = payload.eventProperties.Impact;\n    updateTask.IncidentTask.DueDate = payload.eventProperties.Due_Date;\n    updateTask.IncidentTask.ParentIncident = payload.eventProperties.ParentIncident;\n    updateTask.IncidentTask.AssignmentGroup = AssignmentGroup;\n    updateTask.IncidentTask.Assignee = payload.recipient;\n    updateTask.IncidentTask.JournalUpdates =  \"Responded with \" + payload.response + \" from \" + payload.device;\n    updateTask.IncidentTask.UpdatedBy = payload.recipient;\n//send it \n    var response = req.write(updateTask);\nif (response.statusCode == 200) {\n    console.log('Incident Task has been updated');\n} else { \n    (console.log('Error updating Incident Task '));\n}}",
+      "environment": "ONPREMISE"
+    }
+  ],
+  "endpoints": [
+    {
+      "name": "HPSM",
+      "baseUrl": "http://<your-HPSM-URL-here>.com:31190/SM/9/rest/incidenttasks/",
+      "type": "EXTERNAL",
+      "authentication": "NO_AUTH"
+    }
+  ],
+  "constants": []
+}

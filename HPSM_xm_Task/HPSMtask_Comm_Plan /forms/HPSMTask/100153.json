@@ -1,0 +1,374 @@
+{
+  "name": "HPSM Task",
+  "description": "",
+  "isActive": true,
+  "isREST": true,
+  "isSendREST": false,
+  "isMobileEnabled": true,
+  "isEmailEnabled": false,
+  "order": 0,
+  "enableFillCount": false,
+  "generalFillCount": 0,
+  "uuid": "b8dc72e8-998c-45f3-931a-8f1067ea849e",
+  "layoutSections": [
+    {
+      "sectionType": 2,
+      "isVisible": true,
+      "isCollapsed": false,
+      "order": 0,
+      "sectionItems": []
+    },
+    {
+      "sectionType": 4,
+      "isVisible": true,
+      "isCollapsed": false,
+      "order": 1,
+      "sectionItems": [
+        {
+          "id": "7592a035-5e92-4bca-b124-87dda5340b07",
+          "order": 0,
+          "textIsMultiLine": false,
+          "isRequired": false,
+          "isVisible": true,
+          "isIncludeInCallbacks": false,
+          "property": {
+            "baseType": 21,
+            "name": ":system:handling:priority100153",
+            "isSystem": true,
+            "values": [
+              {
+                "value": "Low",
+                "isDefault": false,
+                "isVisible": true
+              },
+              {
+                "value": "Medium",
+                "isDefault": true,
+                "isVisible": true
+              },
+              {
+                "value": "High",
+                "isDefault": false,
+                "isVisible": true
+              }
+            ]
+          }
+        },
+        {
+          "id": "3b5a4499-701f-471f-920f-da3ef14cb620",
+          "order": 1,
+          "textIsMultiLine": false,
+          "isRequired": false,
+          "isVisible": true,
+          "isIncludeInCallbacks": false,
+          "property": {
+            "baseType": 6,
+            "name": ":system:handling:duration100153",
+            "defaultValue": "3|Hours",
+            "isSystem": true
+          }
+        },
+        {
+          "id": "0d89f6ef-fdbf-4b6a-bd7d-58f98638f9d3",
+          "order": 2,
+          "textIsMultiLine": false,
+          "isRequired": false,
+          "isVisible": true,
+          "isIncludeInCallbacks": false,
+          "property": {
+            "baseType": 0,
+            "name": ":system:handling:overrideDeviceRestrictions100153",
+            "defaultValue": "false",
+            "isSystem": true
+          }
+        },
+        {
+          "id": "54dd70ee-56d1-4564-8c3b-193710e4d942",
+          "order": 3,
+          "textIsMultiLine": false,
+          "isRequired": false,
+          "isVisible": true,
+          "isIncludeInCallbacks": false,
+          "property": {
+            "baseType": 0,
+            "name": ":system:handling:escalationOverride100153",
+            "defaultValue": "false",
+            "isSystem": true
+          }
+        },
+        {
+          "id": "0df3adfb-e792-469e-bcdb-70c312d2fde4",
+          "order": 4,
+          "textIsMultiLine": false,
+          "isRequired": false,
+          "isVisible": true,
+          "isIncludeInCallbacks": false,
+          "property": {
+            "baseType": 0,
+            "name": ":system:handling:bypassPhoneIntro100153",
+            "defaultValue": "false",
+            "isSystem": true
+          }
+        },
+        {
+          "id": "2f23ae04-c370-483d-9a24-f0b73fa6840b",
+          "order": 5,
+          "textIsMultiLine": false,
+          "isRequired": false,
+          "isVisible": true,
+          "isIncludeInCallbacks": false,
+          "property": {
+            "baseType": 0,
+            "name": ":system:handling:requireAuthentication100153",
+            "defaultValue": "false",
+            "isSystem": true
+          }
+        },
+        {
+          "id": "bb80ee0a-a3ea-44b8-adad-36efbe2a7edd",
+          "order": 6,
+          "textIsMultiLine": false,
+          "isRequired": false,
+          "isVisible": true,
+          "isIncludeInCallbacks": false,
+          "property": {
+            "baseType": 21,
+            "name": ":system:handling:voiceMailOptions100153",
+            "isSystem": true,
+            "values": [
+              {
+                "value": "callbackandmessage",
+                "isDefault": false,
+                "isVisible": true
+              },
+              {
+                "value": "messageonly",
+                "isDefault": false,
+                "isVisible": true
+              },
+              {
+                "value": "callbackonly",
+                "isDefault": true,
+                "isVisible": true
+              },
+              {
+                "value": "hangup",
+                "isDefault": false,
+                "isVisible": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "sectionType": 7,
+      "isVisible": true,
+      "isCollapsed": false,
+      "order": 2,
+      "sectionItems": []
+    },
+    {
+      "sectionType": 1,
+      "isVisible": true,
+      "isCollapsed": false,
+      "order": 3,
+      "sectionItems": [
+        {
+          "id": "c0dd33a1-5dfa-4233-b277-2817cdbce2cf",
+          "order": 0,
+          "textIsMultiLine": true,
+          "isRequired": false,
+          "isVisible": true,
+          "isIncludeInCallbacks": false,
+          "propertyName": "Targets"
+        },
+        {
+          "id": "c69eaadb-06a3-4eb0-bf9c-0cdf9ebc9179",
+          "order": 1,
+          "textIsMultiLine": true,
+          "isRequired": false,
+          "isVisible": true,
+          "isIncludeInCallbacks": true,
+          "propertyName": "Status"
+        },
+        {
+          "id": "88959c8f-6a76-4941-a663-23f37b34815a",
+          "order": 2,
+          "textIsMultiLine": true,
+          "isRequired": false,
+          "isVisible": true,
+          "isIncludeInCallbacks": true,
+          "propertyName": "Title"
+        },
+        {
+          "id": "b75875c9-d28d-4ac1-8bf2-2bfd3aef0686",
+          "order": 3,
+          "textIsMultiLine": true,
+          "isRequired": false,
+          "isVisible": true,
+          "isIncludeInCallbacks": true,
+          "propertyName": "Category"
+        },
+        {
+          "id": "6314d974-92f6-4743-831f-74c5aa7f408f",
+          "order": 4,
+          "textIsMultiLine": false,
+          "isRequired": false,
+          "isVisible": true,
+          "isIncludeInCallbacks": true,
+          "propertyName": "Open"
+        },
+        {
+          "id": "d9ff4698-d26b-42bf-b4dc-28616de12317",
+          "order": 5,
+          "textIsMultiLine": true,
+          "isRequired": false,
+          "isVisible": true,
+          "isIncludeInCallbacks": true,
+          "propertyName": "Task_ID"
+        },
+        {
+          "id": "862fdce6-080d-4d85-b4c7-e84db49e4deb",
+          "order": 6,
+          "textIsMultiLine": true,
+          "isRequired": false,
+          "isVisible": true,
+          "isIncludeInCallbacks": true,
+          "propertyName": "Affected_CI"
+        },
+        {
+          "id": "20bc179d-e5f2-4251-beab-231be4b6fc7f",
+          "order": 7,
+          "textIsMultiLine": true,
+          "isRequired": false,
+          "isVisible": true,
+          "isIncludeInCallbacks": true,
+          "propertyName": "Impact"
+        },
+        {
+          "id": "a20a6f76-f341-4783-9155-0881303c51bf",
+          "order": 8,
+          "textIsMultiLine": true,
+          "isRequired": false,
+          "isVisible": true,
+          "isIncludeInCallbacks": true,
+          "propertyName": "Urgency"
+        },
+        {
+          "id": "6cf06a73-4d1f-4f2f-a8f4-9bad5f0b4f58",
+          "order": 9,
+          "textIsMultiLine": true,
+          "isRequired": false,
+          "isVisible": true,
+          "isIncludeInCallbacks": false,
+          "propertyName": "Priority"
+        },
+        {
+          "id": "ec4703b7-a148-4f48-97cf-a529416229c4",
+          "order": 10,
+          "textIsMultiLine": true,
+          "isRequired": false,
+          "isVisible": true,
+          "isIncludeInCallbacks": true,
+          "propertyName": "Due_Date"
+        },
+        {
+          "id": "f8448f2a-322c-4b2b-85e7-02f4f6fe6c71",
+          "order": 11,
+          "textIsMultiLine": true,
+          "isRequired": false,
+          "isVisible": true,
+          "isIncludeInCallbacks": true,
+          "propertyName": "ParentIncident"
+        },
+        {
+          "id": "1b9e5eb9-4d86-49c9-8832-7dcb9179a241",
+          "order": 12,
+          "textIsMultiLine": true,
+          "isRequired": false,
+          "isVisible": true,
+          "isIncludeInCallbacks": true,
+          "propertyName": "Description"
+        }
+      ]
+    }
+  ],
+  "messages": {
+    "emailTemplates": [
+      {
+        "emailSubject": "Service Manager Incident Task #:\n${d9ff4698-d26b-42bf-b4dc-28616de12317} Priority: ${6cf06a73-4d1f-4f2f-a8f4-9bad5f0b4f58}",
+        "email": "\n\n<style type=\"text/css\">\ntable.header_table {\n  font-family: Calibri, Helvetica, sans-serif; font-size: 24px; color: black;\n  border: none;\n  background-color: whitesmoke;\n  width: 100%;\n  padding: 5px;\n  font-weight: bold;\n  vertical-align: middle;\n}\n\ntd.header_data {\n  padding: 0px;\n  margin-left: 0px;\n  line-height: 1;\n  vertical-align: middle;\n  border: none;\n  border-collapse: collapse;\n  \n}\n\ndiv.intro_text {\n  font-family: Calibri, Helvetica, sans-serif; font-size: 14px; color: black;\n  text-align: left; \n  font-weight: bold;\n}\n\ntr.myrow {\n  text-align: left;\n}\n\ntable.mytable {\n  font-family: Calibri, Helvetica, sans-serif; font-size: 14px; color: black;\n  border: none;\n  border-collapse: collapse;\n  width: 100%;\n}\n  \ntd.myheader {\n  font-weight: bold; \n  text-decoration: underline;\n  border: none;\n  border-collapse: collapse;\n\n}\n  \ntd.first_column  {\n  padding: 0px 15px 0px 0px;\n  margin: 0px;\n  border: none;\n  line-height: 1;  \n  border-collapse: collapse;\n  font-weight: bold;\n  vertical-align: top;\n  white-space: nowrap;\n  width: 1%;\n}\n  \ntd.second_column {\n  padding: 0px;\n  margin-left: 0px;\n  line-height: 1;\n  vertical-align: top;\n  border: none;\n  border-collapse: collapse;\n  \n}\n\n</style>\n\n <table class=\"header_table\" id=\"table-2\">\n  <tbody>\n\n    <tr>\n      <td tabindex=\"0\" class=\"header_data\" style=\"width: 1%;\"> </td>\n      <td tabindex=\"0\" class=\"header_data\" style=\"width: 66%;\">HP Service Manager - Incident Task Notification</td>\n      <td tabindex=\"0\" class=\"header_data\"> </td>\n    </tr>\n   </tbody>\n</table>\n\n\n    <table class=\"mytable\" id=\"table-3\" width=\"450\">\n        <tbody>\n\t\t<tr class=\"myrow\">\n          <td tabindex=\"0\" class=\"myheader\" colspan=\"2\"> </td>\n        </tr>\n         \n        <tr class=\"myrow\">\n          <td tabindex=\"0\" class=\"first_column\">Incident Task:</td>\n          <td tabindex=\"0\" class=\"second_column\">${d9ff4698-d26b-42bf-b4dc-28616de12317}</td>\n        </tr>\n        <tr class=\"myrow\">         <td tabindex=\"0\" class=\"first_column\">Recipients:</td>\n          <td tabindex=\"0\" class=\"second_column\">${c0dd33a1-5dfa-4233-b277-2817cdbce2cf}</td>\n        </tr>\n\n        <tr class=\"myrow\">\n          <td tabindex=\"0\" class=\"first_column\">Configuration Item:</td>\n          <td tabindex=\"0\" class=\"second_column\">${862fdce6-080d-4d85-b4c7-e84db49e4deb}</td>\n        </tr>\n\n        <tr class=\"myrow\">\n          <td tabindex=\"0\" class=\"first_column\">Title:</td>\n          <td tabindex=\"0\" class=\"second_column\">${88959c8f-6a76-4941-a663-23f37b34815a}</td>\n        </tr>\n\n        <tr class=\"myrow\">\n          <td tabindex=\"0\" class=\"first_column\">Description:</td>\n          <td tabindex=\"0\" class=\"second_column\">${1b9e5eb9-4d86-49c9-8832-7dcb9179a241}</td>\n        </tr>\n\n        <tr class=\"myrow\">\n          <td tabindex=\"0\" class=\"first_column\">Priority:</td>\n          <td tabindex=\"0\" class=\"second_column\">${6cf06a73-4d1f-4f2f-a8f4-9bad5f0b4f58}</td>\n        </tr>\n\n        <tr class=\"myrow\">\n          <td tabindex=\"0\" class=\"first_column\">Urgency:</td>\n          <td tabindex=\"0\" class=\"second_column\">${a20a6f76-f341-4783-9155-0881303c51bf}</td>\n        </tr>\n\n        <tr class=\"myrow\">\n          <td tabindex=\"0\" class=\"first_column\">Impact:</td>\n          <td tabindex=\"0\" class=\"second_column\">${20bc179d-e5f2-4251-beab-231be4b6fc7f} </td>\n        </tr>\n\n        <tr class=\"myrow\">\n          <td tabindex=\"0\" class=\"first_column\">Time of Event:</td>\n          <td tabindex=\"0\" class=\"second_column\">${event.startDate} ${event.startTime} </td>\n        </tr>\n\t\t       \n\n\t\t</tbody>\n\t</table>\n\n<br>",
+        "languageCode": "en"
+      }
+    ],
+    "smsTemplates": [
+      {
+        "sms": "Priority:${6cf06a73-4d1f-4f2f-a8f4-9bad5f0b4f58}\nTask:${d9ff4698-d26b-42bf-b4dc-28616de12317}  \nTitle: ${1b9e5eb9-4d86-49c9-8832-7dcb9179a241}",
+        "languageCode": "en"
+      }
+    ],
+    "internationalVoiceScriptSteps": [
+      {
+        "languageCode": "en",
+        "voiceScriptSteps": [
+          {
+            "playType": "PHRASE",
+            "voiceScriptStepType": 1,
+            "phrase": "HP Service Manager Task was created"
+          },
+          {
+            "playType": "PHRASE",
+            "voiceScriptStepType": 1,
+            "phrase": "with a task number of "
+          },
+          {
+            "playType": "CHARACTERS",
+            "voiceScriptStepType": 2,
+            "propertyName": "Task_ID"
+          },
+          {
+            "playType": "PHRASE",
+            "voiceScriptStepType": 1,
+            "phrase": "and with a description of "
+          },
+          {
+            "playType": "PHRASE",
+            "voiceScriptStepType": 2,
+            "propertyName": "Description"
+          }
+        ]
+      }
+    ]
+  },
+  "responses": [
+    {
+      "textResponse": "Acknowledge",
+      "description": "Acknowledge",
+      "voicePrompt": "Acknowledge",
+      "digit": 1,
+      "contribution": "POSITIVE",
+      "action": "END",
+      "isJoinConference": false,
+      "redirectUrl": "",
+      "isAllowComments": false,
+      "textResponseLanguageCode": "en",
+      "descriptionLanguageCode": "en",
+      "voicePromptLanguageCode": "en",
+      "recordingPhrase": "",
+      "order": 0,
+      "translations": [
+        {
+          "languageCode": "en",
+          "textResponse": "Acknowledge",
+          "description": "Acknowledge",
+          "voicePrompt": "Acknowledge"
+        }
+      ]
+    }
+  ],
+  "handlingOption": {
+    "voicemailNumRetries": 0,
+    "voicemailRetryInterval": 60
+  }
+}
